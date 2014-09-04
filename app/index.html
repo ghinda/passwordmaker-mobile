@@ -29,13 +29,14 @@
   <link rel="stylesheet" href="/bower_components/building-blocks/icons/styles/settings_icons.css">
 
   <link rel="stylesheet" href="/bower_components/building-blocks/style_unstable/drawer.css">
+  <link rel="stylesheet" href="/bower_components/building-blocks/style_unstable/lists.css">
 
   <link rel="stylesheet" href="/styles/main.css">
   <!-- endbuild -->
 </head>
 <body role="application" ng-csp ng-app="passwordmaker-mobile">
 
-  <div ng-view class="main-view {{ viewTransition }}">
+  <div ng-view class="main-view {{ root.viewTransition }}">
     <progress id="initial-spinner"></progress>
   </div>
 
@@ -44,16 +45,13 @@
   <script src="/bower_components/angular/angular.js"></script>
   <script src="/bower_components/angular-touch/angular-touch.js"></script>
   <script src="/bower_components/angular-route/angular-route.js"></script>
-
-  <script src="/bower_components/building-blocks/js/action_menu.js"></script>
-  <script src="/bower_components/building-blocks/js/app.js"></script>
-  <script src="/bower_components/building-blocks/js/seekbars.js"></script>
-  <script src="/bower_components/building-blocks/js/status.js"></script>
+  <script src="/bower_components/angular-animate/angular-animate.js"></script>
   <!-- endbuild -->
 
   <!-- build:js({.tmp,app}) /scripts/app.js -->
   <script src="/scripts/app.js"></script>
-  <script src="/scripts/controllers/generator.js"></script>
+  <script src="/scripts/controllers/generate.js"></script>
+  <script src="/scripts/controllers/edit.js"></script>
   <script src="/scripts/services/data.js"></script>
   <!-- endbuild -->
 

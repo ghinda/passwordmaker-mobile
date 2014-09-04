@@ -1,0 +1,55 @@
+<section role="region">
+
+  <header class="fixed">
+
+    <menu type="toolbar">
+      <a ng-click="Go('/generate/', 'popdown')">
+        Save
+      </a>
+    </menu>
+
+    <a ng-click="root.viewTransition = 'popdown'; GoBack()">
+      <span class="icon icon-back">back to generator</span>
+    </a>
+
+    <h1>
+      edit
+    </h1>
+
+  </header>
+
+  <article class="scrollable header">
+
+    <form>
+
+      <p>
+        <input type="text" placeholder="Password">
+        <button type="reset">Clear</button>
+      </p>
+
+      <p>
+        <label class="pack-checkbox">
+          <input type="checkbox" id="show-password" checked>
+          <span></span>
+        </label>
+
+        <label for="show-password">
+          Show password
+        </label>
+      </p>
+
+      <p>
+        <input type="text" placeholder="Used text">
+        <button type="reset">Clear</button>
+      </p>
+
+      <p>
+
+      </p>
+
+    </form>
+
+  </article>
+
+</section>
+
