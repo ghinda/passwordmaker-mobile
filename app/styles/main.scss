@@ -1,0 +1,38 @@
+/* PasswordMaker Mobile
+ */
+
+/* Bourbon
+ */
+@import '../bower_components/bourbon/dist/bourbon';
+
+/* Globals
+ */
+$color1: #2854a1;
+$color2: lighten(saturate($color1, 40%), 20%);
+
+/* Utils
+ */
+@import 'utils';
+
+/* Main
+*/
+
+body {
+  font-family: sans-serif;
+}
+
+div[ng-view] {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: white;
+}
+
+section#drawer {
+  height: 100%;
+  overflow: hidden;
+  background: #fff;
+}
+

@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+    PasswordMaker Mobile
+  </title>
+  <meta name="description" content="PasswordMaker for FirefoxOS">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- build:css({.tmp,app}) /styles/app.css -->
+  <link rel="stylesheet" href="/bower_components/building-blocks/style/action_menu.css">
+  <link rel="stylesheet" href="/bower_components/building-blocks/style/buttons.css">
+  <link rel="stylesheet" href="/bower_components/building-blocks/style/confirm.css">
+  <link rel="stylesheet" href="/bower_components/building-blocks/style/edit_mode.css">
+  <link rel="stylesheet" href="/bower_components/building-blocks/style/headers.css">
+  <link rel="stylesheet" href="/bower_components/building-blocks/style/icons.css">
+  <link rel="stylesheet" href="/bower_components/building-blocks/style/input_areas.css">
+  <link rel="stylesheet" href="/bower_components/building-blocks/style/status.css">
+  <link rel="stylesheet" href="/bower_components/building-blocks/style/switches.css">
+
+  <link rel="stylesheet" href="/bower_components/building-blocks/transitions.css">
+  <link rel="stylesheet" href="/bower_components/building-blocks/util.css">
+
+  <link rel="stylesheet" href="/bower_components/building-blocks/icons/styles/action_icons.css">
+  <link rel="stylesheet" href="/bower_components/building-blocks/icons/styles/comms_icons.css">
+  <link rel="stylesheet" href="/bower_components/building-blocks/icons/styles/media_icons.css">
+  <link rel="stylesheet" href="/bower_components/building-blocks/icons/styles/settings_icons.css">
+
+  <link rel="stylesheet" href="/bower_components/building-blocks/style_unstable/drawer.css">
+
+  <link rel="stylesheet" href="/styles/main.css">
+  <!-- endbuild -->
+</head>
+<body role="application" ng-csp ng-app="passwordmaker-mobile">
+
+  <div ng-view class="main-view {{ viewTransition }}">
+    <progress id="initial-spinner"></progress>
+  </div>
+
+  <!-- build:js(app) /scripts/plugins.js -->
+  <script src="/bower_components/jquery/dist/jquery.js"></script>
+  <script src="/bower_components/angular/angular.js"></script>
+  <script src="/bower_components/angular-touch/angular-touch.js"></script>
+  <script src="/bower_components/angular-route/angular-route.js"></script>
+
+  <script src="/bower_components/building-blocks/js/action_menu.js"></script>
+  <script src="/bower_components/building-blocks/js/app.js"></script>
+  <script src="/bower_components/building-blocks/js/seekbars.js"></script>
+  <script src="/bower_components/building-blocks/js/status.js"></script>
+  <!-- endbuild -->
+
+  <!-- build:js({.tmp,app}) /scripts/app.js -->
+  <script src="/scripts/app.js"></script>
+  <script src="/scripts/controllers/generator.js"></script>
+  <script src="/scripts/services/data.js"></script>
+  <!-- endbuild -->
+
+</body>
+</html>
