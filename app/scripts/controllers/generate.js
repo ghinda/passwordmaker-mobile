@@ -26,7 +26,7 @@ app.controller('GenerateCtrl', function($rootScope, $scope, $routeParams, $locat
     })
     .then(function(profile) {
 
-      angular.extend(model.profile, profile);
+      model.profile = profile;
 
     });
 

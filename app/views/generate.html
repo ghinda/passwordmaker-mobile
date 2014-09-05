@@ -3,7 +3,7 @@
   <header class="fixed">
 
     <menu type="toolbar">
-      <a ng-click="Go('/profile/:profileId', 'popup')">
+      <a ng-click="Go('/profile/' + model.profile.key, 'popup')">
         <span class="icon icon-compose">edit</span>
       </a>
     </menu>
@@ -26,7 +26,7 @@
         <ul>
           <li ng-repeat="profile in model.profiles">
 
-            <a ng-click="(model.profile.key !== profile.key) ? Go('/generate/{{ profile.key }}', 'popup') : ToggleProfileMenu()">
+            <a ng-click="(model.profile.key !== profile.key) ? Go('/generate/' + profile.key, 'popup') : ToggleProfileMenu()">
               <p>
                 {{ profile.name }}
               </p>

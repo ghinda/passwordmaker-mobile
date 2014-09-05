@@ -17,6 +17,12 @@ $color2: lighten(saturate($color1, 40%), 20%);
 /* Main
 */
 
+*,
+*:before,
+*:after {
+  @include box-sizing(border-box);
+}
+
 body {
   font-family: sans-serif;
 }
@@ -75,6 +81,11 @@ div[ng-view] {
 form p input + button[type=reset],
 form p textarea + button[type=reset] {
   pointer-events: all;
+}
+
+[disabled] {
+  opacity: .5;
+  pointer-events: none;
 }
 
 /**

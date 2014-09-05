@@ -15,8 +15,8 @@ var app = angular.module('passwordmaker-mobile', [
     controller: 'GenerateCtrl'
   })
   .when('/profile/:profileId?', {
-    templateUrl: 'views/edit.html',
-    controller: 'EditCtrl'
+    templateUrl: 'views/profile.html',
+    controller: 'ProfileCtrl'
   })
   .otherwise({
     redirectTo: '/generate'

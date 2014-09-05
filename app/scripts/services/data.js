@@ -98,12 +98,50 @@ app.factory('data', function($rootScope, $http, $q) {
     return deferred.promise;
   };
 
+  var SaveProfile = function(params) {
+
+    var deferred = $q.defer();
+
+    if(params.key) {
+
+      angular.forEach(model.profiles, function(profile) {
+
+        if(params.key === profile.key) {
+
+          angular.extend(profile, params);
+
+          deferred.resolve(profile);
+
+          return false;
+        }
+
+      });
+
+    } else {
+
+      // TODO if no param.key
+      // create new profile
+      params.key = Date.now();
+
+      model.profiles.push(params);
+
+      deferred.resolve(params);
+
+    }
+
+    //deferred.reject(err);
+
+    return deferred.promise;
+
+  };
+
   return {
     env: env,
 
     model: model,
     GetProfiles: GetProfiles,
-    GetProfile: GetProfile
+    GetProfile: GetProfile,
+    SaveProfile: SaveProfile
   };
 
 });
