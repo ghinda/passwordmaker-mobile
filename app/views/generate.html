@@ -13,7 +13,7 @@
     </a>
 
     <h1>
-      Default
+      {{ model.profile.name }}
     </h1>
 
   </header>
@@ -24,10 +24,14 @@
 
       <section data-type="list">
         <ul>
-          <li>
-            <a href="#">
-              <p>Travis Gray</p>
+          <li ng-repeat="profile in model.profiles">
+
+            <a ng-click="(model.profile.key !== profile.key) ? Go('/generate/{{ profile.key }}', 'popup') : ToggleProfileMenu()">
+              <p>
+                {{ profile.name }}
+              </p>
             </a>
+
           </li>
         </ul>
       </section>
@@ -41,13 +45,16 @@
     <form ng-submit="Notify()">
 
       <p>
-        <input type="text" placeholder="Password">
-        <button type="reset">Clear</button>
+        <input type="text" placeholder="Password" ng-model="model.masterkey" ng-if="model.showPassword">
+
+        <input type="password" placeholder="Password" ng-model="model.masterkey" ng-if="!model.showPassword">
+
+        <button type="reset" ng-click="ClearModel(model, 'masterkey', $event)">Clear</button>
       </p>
 
       <p>
         <label class="pack-checkbox">
-          <input type="checkbox" id="show-password" checked>
+          <input type="checkbox" id="show-password" ng-model="model.showPassword">
           <span></span>
         </label>
 
@@ -57,12 +64,13 @@
       </p>
 
       <p>
-        <input type="text" placeholder="Used text">
-        <button type="reset">Clear</button>
+        <input type="text" placeholder="Used text" ng-model="model.url">
+        <button type="reset" ng-click="ClearModel(model, 'url', $event)">Clear</button>
       </p>
 
       <p>
-
+        Generated password:
+        {{ model.generatedPassword }}
       </p>
 
       <button type="submit" class="recommend">

@@ -4,52 +4,96 @@
 app.factory('data', function($rootScope, $http, $q) {
   'use strict';
 
-  // local testing urls
+  // environments
   var env = 'local';
 
-  // dev
-  if(document.domain.indexOf('development.') !== -1) {
-    env = 'dev';
-  }
-
-  // stage
-  if(document.domain.indexOf('staging.') !== -1) {
-    env = 'stage';
-  }
-
-  // live
-  if(document.domain.indexOf('www.') !== -1) {
-    env = 'live';
-  }
-
-  if(env === 'dev') {
-    apiUrl = 'https://dev-bizcardmaker.rhcloud.com';
-  }
-
-  if(env === 'live' || env === 'stage') {
-    apiUrl = 'https://live-bizcardmaker.rhcloud.com';
-    printchompUrl = 'https://printchomp.com';
-  }
-
-  // local model
+  // local models
   var model = {
-    offers: []
+    profiles: [
+      {
+        key: '1',
+        name: 'Profile1',
+
+        url_protocol: false,
+        url_subdomain: false,
+        url_domain: true,
+        url_path: false,
+
+        // use this text instead of url if not null
+        strUseText: '',
+
+        selectedCharset: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789',
+
+        hashAlgorithm: 'md5',
+
+        whereToUseL33t: 'off',
+        l33tLevel: 0,
+
+        username: '',
+        modifier: '',
+
+        passwordLength: 8,
+        passwordPrefix: '',
+        passwordSuffix: ''
+      },
+      {
+        key: '2',
+        name: 'Profile2',
+
+        url_protocol: false,
+        url_subdomain: false,
+        url_domain: true,
+        url_path: false,
+
+        // use this text instead of url if not null
+        strUseText: '',
+
+        selectedCharset: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789',
+
+        hashAlgorithm: 'md5',
+
+        whereToUseL33t: 'off',
+        l33tLevel: 0,
+
+        username: '',
+        modifier: '',
+
+        passwordLength: 8,
+        passwordPrefix: '',
+        passwordSuffix: ''
+      }
+    ]
   };
 
-  // get list of offers
-  var GetOffers = function() {
+  // get list of profiles
+  var GetProfiles = function(params) {
     var deferred = $q.defer();
 
-    $http.get(apiUrl + '/api/v1/offers')
-    .success(function(response) {
+    // TODO get from localforage
 
-      deferred.resolve(response);
+    deferred.resolve(model.profiles);
 
-    }).error(function(err) {
+    // TODO nothing in localstorage?
+    // create the first 'default' profile
 
-      deferred.reject(err);
+    //deferred.reject(err);
+
+    return deferred.promise;
+  };
+
+  var GetProfile = function(params) {
+    var deferred = $q.defer();
+
+    angular.forEach(model.profiles, function(profile) {
+
+      if(params.key === profile.key) {
+        deferred.resolve(profile);
+        return false;
+      }
 
     });
+
+    //deferred.reject(err);
 
     return deferred.promise;
   };
@@ -58,7 +102,8 @@ app.factory('data', function($rootScope, $http, $q) {
     env: env,
 
     model: model,
-    GetOffers: GetOffers
+    GetProfiles: GetProfiles,
+    GetProfile: GetProfile
   };
 
 });

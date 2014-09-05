@@ -30,6 +30,12 @@ div[ng-view] {
   background: white;
 }
 
+.ng-hide {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
 #initial-spinner {
   position: absolute;
   top: calc(50% - 1.45rem);
@@ -37,6 +43,9 @@ div[ng-view] {
   width: 2.9rem;
   height: 2.9rem;
 }
+
+/* Profile menu
+ */
 
 .profile-menu {
   position: fixed;
@@ -58,6 +67,15 @@ div[ng-view] {
   @include transform(translateY(-20%));
 }
 
+/* Forms
+ */
+
+/* Fix dissapearing form clear button
+ */
+form p input + button[type=reset],
+form p textarea + button[type=reset] {
+  pointer-events: all;
+}
 
 /**
  Animations

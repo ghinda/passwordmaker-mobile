@@ -4,7 +4,8 @@
 var app = angular.module('passwordmaker-mobile', [
   'ngRoute',
   'ngTouch',
-  'ngAnimate'
+  'ngAnimate',
+  'LocalForageModule'
 ]).config(function($routeProvider, $compileProvider, $parseProvider) {
   'use strict';
 
@@ -29,7 +30,7 @@ var app = angular.module('passwordmaker-mobile', [
 
 });
 
-app.run(function($rootScope, $location){
+app.run(function($rootScope, $location, $timeout){
   'use strict';
 
   var root = $rootScope.root = {};
@@ -44,7 +45,11 @@ app.run(function($rootScope, $location){
     window.history.back();
   };
 
-  // TODO create field clear method for x button on fields
+  // field clear method for x button on fields
+  $rootScope.ClearModel = function(model, prop, event) {
+    model[prop] = '';
 
+    return event.preventDefault();
+  };
 
 });
