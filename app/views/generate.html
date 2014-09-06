@@ -3,7 +3,7 @@
   <header class="fixed">
 
     <menu type="toolbar">
-      <a ng-click="Go('/profile/' + model.profile.key, 'popup')">
+      <a ng-click="Go('/profile/' + model.profile.id, 'popup')">
         <span class="icon icon-compose">edit</span>
       </a>
     </menu>
@@ -20,13 +20,13 @@
 
   <article class="scrollable header">
 
-    <div class="profile-menu" ng-show="model.showProfileMenu">
+    <form class="profile-menu" ng-show="model.showProfileMenu">
 
-      <section data-type="list">
+      <section data-type="list" >
         <ul>
-          <li ng-repeat="profile in model.profiles">
+          <li ng-repeat="profile in root.profiles">
 
-            <a ng-click="(model.profile.key !== profile.key) ? Go('/generate/' + profile.key, 'popup') : ToggleProfileMenu()">
+            <a ng-click="(model.profile.id !== profile.id) ? Go('/generate/' + profile.id, 'popup') : ToggleProfileMenu()">
               <p>
                 {{ profile.name }}
               </p>
@@ -36,13 +36,13 @@
         </ul>
       </section>
 
-      <button ng-click="Go('/profile', 'popup')" type="button" class="recommend">
+      <button ng-click="Go('/profile', 'popup')" type="button" class="recommend btn-new-profile">
         Create profile
       </button>
 
-    </div>
+    </form>
 
-    <form ng-submit="Notify()">
+    <form ng-submit="Notify()" data-type="list">
 
       <p>
         <input type="text" placeholder="Password" ng-model="model.masterkey" ng-if="model.showPassword">
@@ -53,13 +53,13 @@
       </p>
 
       <p>
-        <label class="pack-checkbox">
-          <input type="checkbox" id="show-password" ng-model="model.showPassword">
-          <span></span>
-        </label>
-
         <label for="show-password">
           Show password
+        </label>
+
+        <label class="pack-switch">
+          <input type="checkbox" id="show-password" ng-model="model.showPassword">
+          <span></span>
         </label>
       </p>
 
@@ -68,9 +68,12 @@
         <button type="reset" ng-click="ClearModel(model, 'url', $event)">Clear</button>
       </p>
 
-      <p>
+      <header>
         Generated password:
-        {{ model.generatedPassword }}
+      </header>
+
+      <p class="password-generated">
+        <input type="text" placeholder="Used text" ng-model="model.generatedPassword" readonly>
       </p>
 
       <button type="submit" class="recommend">

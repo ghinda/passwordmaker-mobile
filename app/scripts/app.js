@@ -4,8 +4,7 @@
 var app = angular.module('passwordmaker-mobile', [
   'ngRoute',
   'ngTouch',
-  'ngAnimate',
-  'LocalForageModule'
+  'ngAnimate'
 ]).config(function($routeProvider, $compileProvider, $parseProvider) {
   'use strict';
 
@@ -30,10 +29,16 @@ var app = angular.module('passwordmaker-mobile', [
 
 });
 
-app.run(function($rootScope, $location, $timeout){
+app.run(function($rootScope, $location, $timeout, data){
   'use strict';
 
   var root = $rootScope.root = {};
+
+  root.profiles = data.model.profiles;
+
+  $rootScope.$watch('root.profiles', function() {
+    data.SaveProfiles();
+  }, true);
 
   $rootScope.Go = function(path, pageAnimation) {
     root.viewTransition = pageAnimation;

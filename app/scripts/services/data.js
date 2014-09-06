@@ -1,80 +1,75 @@
 /* Data service
  */
 
-app.factory('data', function($rootScope, $http, $q) {
+app.factory('data', function($rootScope, $http, $q, $timeout) {
   'use strict';
 
-  // environments
-  var env = 'local';
+  // in case we don't have any profiles in db
+  var defaultProfile = {
+    name: 'Default',
+
+    url_protocol: false,
+    url_subdomain: false,
+    url_domain: true,
+    url_path: false,
+
+    // use this text instead of url if not null
+    strUseText: '',
+
+    selectedCharset: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789',
+
+    hashAlgorithm: 'md5',
+
+    whereToUseL33t: 'off',
+    l33tLevel: 0,
+
+    username: '',
+    modifier: '',
+
+    passwordLength: 8,
+    passwordPrefix: '',
+    passwordSuffix: ''
+  };
 
   // local models
   var model = {
-    profiles: [
-      {
-        key: '1',
-        name: 'Profile1',
-
-        url_protocol: false,
-        url_subdomain: false,
-        url_domain: true,
-        url_path: false,
-
-        // use this text instead of url if not null
-        strUseText: '',
-
-        selectedCharset: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789',
-
-        hashAlgorithm: 'md5',
-
-        whereToUseL33t: 'off',
-        l33tLevel: 0,
-
-        username: '',
-        modifier: '',
-
-        passwordLength: 8,
-        passwordPrefix: '',
-        passwordSuffix: ''
-      },
-      {
-        key: '2',
-        name: 'Profile2',
-
-        url_protocol: false,
-        url_subdomain: false,
-        url_domain: true,
-        url_path: false,
-
-        // use this text instead of url if not null
-        strUseText: '',
-
-        selectedCharset: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789',
-
-        hashAlgorithm: 'md5',
-
-        whereToUseL33t: 'off',
-        l33tLevel: 0,
-
-        username: '',
-        modifier: '',
-
-        passwordLength: 8,
-        passwordPrefix: '',
-        passwordSuffix: ''
-      }
-    ]
+    defaultProfile: defaultProfile,
+    profiles: []
   };
 
   // get list of profiles
   var GetProfiles = function(params) {
     var deferred = $q.defer();
 
-    // TODO get from localforage
+    if(model.profiles.length) {
 
-    deferred.resolve(model.profiles);
+      deferred.resolve(model.profiles);
 
-    // TODO nothing in localstorage?
-    // create the first 'default' profile
+    } else {
+      // get from localforage
+      localforage.getItem('profiles')
+      .then(function(storedProfiles) {
+
+        if(storedProfiles && storedProfiles.length) {
+
+          model.profiles.length = 0;
+          [].push.apply(model.profiles, storedProfiles);
+
+        } else {
+
+          // default profile
+          var firstProfile = {};
+          angular.copy(defaultProfile, firstProfile);
+          firstProfile.id = Date.now();
+
+          model.profiles.push(firstProfile);
+
+        }
+
+        deferred.resolve(model.profiles);
+
+      });
+    }
 
     //deferred.reject(err);
 
@@ -84,16 +79,35 @@ app.factory('data', function($rootScope, $http, $q) {
   var GetProfile = function(params) {
     var deferred = $q.defer();
 
-    angular.forEach(model.profiles, function(profile) {
+    var findProfile = function() {
 
-      if(params.key === profile.key) {
-        deferred.resolve(profile);
-        return false;
+      var foundProfile;
+
+      angular.forEach(model.profiles, function(profile) {
+
+        if(params.id === profile.id) {
+          foundProfile = profile;
+          return false;
+        }
+
+      });
+
+      if(foundProfile) {
+        deferred.resolve(foundProfile);
+      } else {
+        // dindn't find the profile?
+        // must have a wrong id
+        deferred.reject();
       }
 
-    });
+    };
 
-    //deferred.reject(err);
+    if(model.profiles.length) {
+      findProfile();
+    } else {
+      GetProfiles()
+      .then(findProfile);
+    }
 
     return deferred.promise;
   };
@@ -102,11 +116,11 @@ app.factory('data', function($rootScope, $http, $q) {
 
     var deferred = $q.defer();
 
-    if(params.key) {
+    if(params.id) {
 
       angular.forEach(model.profiles, function(profile) {
 
-        if(params.key === profile.key) {
+        if(params.id === profile.id) {
 
           angular.extend(profile, params);
 
@@ -119,9 +133,9 @@ app.factory('data', function($rootScope, $http, $q) {
 
     } else {
 
-      // TODO if no param.key
+      // if no param.id
       // create new profile
-      params.key = Date.now();
+      params.id = Date.now();
 
       model.profiles.push(params);
 
@@ -135,13 +149,57 @@ app.factory('data', function($rootScope, $http, $q) {
 
   };
 
-  return {
-    env: env,
+  var SaveProfiles = function(params) {
 
+    var deferred = $q.defer();
+
+    if(model.profiles.length) {
+
+      // save with localforage
+      localforage.setItem('profiles', model.profiles);
+
+      deferred.resolve(model.profiles);
+
+    } else {
+
+      deferred.reject();
+
+    }
+
+    return deferred.promise;
+
+  };
+
+  var DeleteProfile = function(params) {
+
+    var deferred = $q.defer();
+
+    angular.forEach(model.profiles, function(profile, index) {
+
+      if(params.id === profile.id) {
+        model.profiles.splice(index, 1);
+
+        deferred.resolve(profile);
+        return false;
+      }
+
+    });
+
+    //deferred.reject(err);
+
+    return deferred.promise;
+
+  };
+
+  return {
     model: model,
+
     GetProfiles: GetProfiles,
+    SaveProfiles: SaveProfiles,
+
     GetProfile: GetProfile,
-    SaveProfile: SaveProfile
+    SaveProfile: SaveProfile,
+    DeleteProfile: DeleteProfile
   };
 
 });

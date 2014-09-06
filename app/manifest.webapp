@@ -1,32 +1,26 @@
 {
-  "version": "0.1",
-  "name": "My App",
-  "description": "Your new awesome Open Web App",
+  "version": "1.0",
+  "name": "PasswordMaker",
+  "description": "PasswordMaker creates unique, secure passwords that are very easy for you to retrieve but no one else. Nothing is stored online anywhere, anytime, so there's nothing to be hacked, lost, or stolen.",
   "launch_path": "/index.html",
   "icons": {
-    "16": "/img/icons/mortar-16.png",
-    "48": "/img/icons/mortar-48.png",
-    "128": "/img/icons/mortar-128.png"
+    "16": "/images/icons/passwordmaker-mobile-icon-16.png",
+    "48": "/images/icons/passwordmaker-mobile-icon-48.png",
+    "128": "/images/icons/passwordmaker-mobile-icon-128.png",
+    "256": "/images/icons/passwordmaker-mobile-icon-256.png",
+    "512": "/images/icons/passwordmaker-mobile-icon-512.png"
   },
   "developer": {
-    "name": "Your Name",
-    "url": "http://yourawesomeapp.com"
+    "name": "Ionut Colceriu",
+    "url": "http://ghinda.net"
   },
   "installs_allowed_from": ["*"],
-  "appcache_path": "/manifest.appcache",
   "locales": {
-    "es": {
-      "description": "Su nueva aplicación impresionante Open Web",
-      "developer": {
-        "url": "http://yourawesomeapp.com"
-      }
-    },
-    "it": {
-      "description": "Il vostro nuovo fantastico Open Web App",
-      "developer": {
-        "url": "http://yourawesomeapp.com"
-      }
-    }
   },
-  "default_locale": "en"
+  "default_locale": "en",
+  "permissions":{
+    "desktop-notification": {
+      "description": "Required for showing the generated password as a notification."
+    }
+  }
 }

@@ -2,6 +2,9 @@ app.controller('ProfileCtrl', function($rootScope, $scope, $routeParams, $locati
   'use strict';
 
   var model = $scope.model = {};
+  var root = $rootScope.root;
+
+  model.showConfirmDelete = false;
 
   model.profile = {};
 
@@ -13,14 +16,10 @@ app.controller('ProfileCtrl', function($rootScope, $scope, $routeParams, $locati
     });
   }
 
-  if(!$routeParams.profileId) {
-
-    // TODO create new profile
-
-  } else {
+  if($routeParams.profileId) {
 
     data.GetProfile({
-      key: $routeParams.profileId
+      id: $routeParams.profileId * 1
     })
     .then(function(profile) {
 
@@ -28,13 +27,31 @@ app.controller('ProfileCtrl', function($rootScope, $scope, $routeParams, $locati
 
     });
 
+  } else {
+
+    // create new profile
+    angular.copy(data.model.defaultProfile, model.profile);
+
+    model.profile.name = 'New profile';
+
   }
 
   $scope.SaveProfile = function() {
 
     data.SaveProfile(model.profile);
 
-    $rootScope.Go('/generate/' + model.profile.key, 'popdown');
+    $rootScope.Go('/generate/' + model.profile.id, 'popdown');
+
+  };
+
+  $scope.DeleteProfile = function() {
+
+    if(model.showConfirmDelete) {
+      data.DeleteProfile(model.profile);
+      $rootScope.Go('/generate', 'popdown');
+    } else {
+      model.showConfirmDelete = true;
+    }
 
   };
 

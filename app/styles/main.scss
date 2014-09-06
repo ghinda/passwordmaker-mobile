@@ -50,6 +50,16 @@ div[ng-view] {
   height: 2.9rem;
 }
 
+/* Fix firefoxos not scrolling to the bottom
+ * beacause of border-top
+ * for fixed header
+ */
+article.scrollable.header {
+  form {
+    margin-bottom: 5rem;
+  }
+}
+
 /* Profile menu
  */
 
@@ -61,6 +71,7 @@ div[ng-view] {
   display: block;
   width: 100%;
   height: 100%;
+  padding: 0 1.5rem;
   background: #fff;
 
   @include transition(all .2s ease-out);
@@ -73,8 +84,68 @@ div[ng-view] {
   @include transform(translateY(-20%));
 }
 
+.profile-menu section {
+  padding: 0;
+}
+
+.btn-new-profile {
+  margin: 1.5rem 0 0;
+}
+
+/* Profile
+ */
+
+.dialog-delete-confirm {
+  @include transition(all .2s ease-out);
+}
+
+.dialog-delete-confirm.ng-hide {
+  opacity: 0;
+  pointer-events: none;
+
+  @include transform(translateY(20%));
+}
+
 /* Forms
  */
+
+form[data-type=list] {
+  overflow: hidden;
+  padding: 1.5rem;
+
+  p {
+    overflow: hidden;
+    margin: 0 0 1.5rem;
+  }
+
+  header {
+    margin: 0 0 1rem;
+  }
+
+  small {
+    color: #444;
+    font-size: 80%;
+  }
+
+  .pack-switch {
+    float: right;
+    margin: -0.5em 0 0 0;
+  }
+}
+
+form select {
+  width: 100%;
+  padding: .5rem;
+  border: 0.1rem solid #ccc;
+
+  font-size: 1.8rem;
+}
+
+.password-generated {
+  input {
+    background: #efefef;
+  }
+}
 
 /* Fix dissapearing form clear button
  */

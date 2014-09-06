@@ -2,31 +2,38 @@ app.controller('GenerateCtrl', function($rootScope, $scope, $routeParams, $locat
   'use strict';
 
   var model = $scope.model = {};
-
-  model.profiles = data.model.profiles;
+  var root = $rootScope.root;
 
   model.profile = {};
 
-  // TODO check if there is a profile selected
-  // if not, change route to first profile
-  if(!$routeParams.profileId) {
-    // auto-select first profile and refresh the controller
+  // check if there is a profile selected
+  if($routeParams.profileId) {
 
-    data.GetProfiles()
-    .then(function() {
+    data.GetProfile({
+      id: $routeParams.profileId * 1
+    })
+    .then(function(profile) {
 
-      $location.path('/generate/' + model.profiles[0].key);
+      $timeout(function() {
+        model.profile = profile;
+      });
+
+    })
+    .catch(function() {
+
+      // wrong id
+      // auto-select first profile
+      $location.path('/generate/' + root.profiles[0].id);
 
     });
 
   } else {
 
-    data.GetProfile({
-      key: $routeParams.profileId
-    })
-    .then(function(profile) {
+    // auto-select first profile
+    data.GetProfiles()
+    .then(function() {
 
-      model.profile = profile;
+      $location.path('/generate/' + root.profiles[0].id);
 
     });
 
@@ -65,7 +72,7 @@ app.controller('GenerateCtrl', function($rootScope, $scope, $routeParams, $locat
 
     var notification = new Notification('PasswordMaker', {
       body: model.generatedPassword,
-      icon: 'icon.png'
+      icon: window.location.origin + '/images/icons/passwordmaker-mobile-icon-48.png'
     });
 
   };

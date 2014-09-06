@@ -22,11 +22,9 @@
     "angular": false,
     "$": false,
     "jQuery": false,
-    "ga": false,
-    "jsPDF": false,
-    "saveAs": false,
-    "html2canvas": false,
-    "Draggabilly": false,
+    "localforage": false,
+    "Notification": false,
+    "passwordmaker": false,
     "app": true
   }
 }

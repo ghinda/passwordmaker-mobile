@@ -13,8 +13,7 @@ module.exports = function (grunt) {
   // configurable paths
   var yeomanConfig = {
     app: 'app',
-    dist: 'public/htdocs',
-    deploy: 'public'
+    dist: 'public'
   };
 
   try {
@@ -57,16 +56,6 @@ module.exports = function (grunt) {
           }
         }
       },
-// 			test: {
-// 				options: {
-// 					middleware: function (connect) {
-// 						return [
-// 							mountFolder(connect, '.tmp'),
-// 							mountFolder(connect, 'test')
-// 						];
-// 					}
-// 				}
-// 			},
       dist: {
         options: {
           middleware: function (connect) {
@@ -82,7 +71,7 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           dot: true,
-          cwd: '<%= yeoman.deploy %>',
+          cwd: '<%= yeoman.dist %>',
           src: [
             '*'
           ]
@@ -96,7 +85,8 @@ module.exports = function (grunt) {
       },
       all: [
         'Gruntfile.js',
-        '<%= yeoman.app %>/scripts/{,*/}*.js'
+        '<%= yeoman.app %>/scripts/{,*/}*.js',
+        '!<%= yeoman.app %>/scripts/passwordmaker/*.js'
       ]
     },
     sass: {
@@ -117,7 +107,6 @@ module.exports = function (grunt) {
           src: [
             '<%= yeoman.dist %>/scripts/{,*/}*.js',
             '<%= yeoman.dist %>/styles/{,*/}*.css',
-            '<%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
             '<%= yeoman.dist %>/styles/fonts/*'
           ]
         }
@@ -125,8 +114,7 @@ module.exports = function (grunt) {
     },
     useminPrepare: {
       html: [
-        //'<%= yeoman.dist %>/{,*/}*.{html,hbs}'
-        '<%= yeoman.dist %>/{,*/}index.html'
+        '<%= yeoman.app %>/{,*/}index.html'
       ],
       options: {
         dest: '<%= yeoman.dist %>'
@@ -165,25 +153,13 @@ module.exports = function (grunt) {
       dist: {
         files: [{
           expand: true,
-          cwd: '<%= yeoman.dist %>',
+          cwd: '<%= yeoman.app %>',
           src: ['*.html', 'views/*.html'],
           dest: '<%= yeoman.dist %>'
         }]
       }
     },
     copy: {
-      dev: {
-        files: [{
-          expand: true,
-          dot: true,
-          cwd: '<%= yeoman.app %>/dev',
-          dest: '<%= yeoman.dist %>',
-          src: [
-            'CNAME',
-            '*.*'
-          ]
-        }]
-      },
       dist: {
         files: [{
           expand: true,
@@ -193,8 +169,6 @@ module.exports = function (grunt) {
           src: [
             'CNAME',
             '*.*',
-            //'bower_components/**/*',
-            'bower_components/font-awesome/**/*',
             'images/{,*/}*.*',
             'styles/fonts/*'
           ]
@@ -205,6 +179,20 @@ module.exports = function (grunt) {
           src: [
             'generated/*'
           ]
+        }, {
+          expand: true,
+          cwd: '<%= yeoman.app %>/bower_components/building-blocks/style',
+          dest: '<%= yeoman.dist %>/styles',
+          src: [
+            '**/*.{png,jpg,jpeg}'
+          ]
+        }, {
+          expand: true,
+          cwd: '<%= yeoman.app %>/bower_components/building-blocks/style_unstable',
+          dest: '<%= yeoman.dist %>/styles',
+          src: [
+            '**/*.{png,jpg,jpeg}'
+          ]
         }]
       }
     },
@@ -212,24 +200,15 @@ module.exports = function (grunt) {
       server: [
         'sass:server'
       ],
-// 			test: [
-// 				'sass'
-// 			],
       dist: [
         'sass:dist'
       ]
-    },
-    karma: {
-      unit: {
-        configFile: 'karma.conf.js',
-        singleRun: true
-      }
     },
     ngtemplates: {
       dist: {
         options: {
           usemin: '<%= yeoman.dist %>/scripts/app.js',
-          module: 'businessCardMaker'
+          module: 'passwordmaker-mobile'
         },
         cwd: '<%= yeoman.app %>',
         src: 'views/{,*/}*.html',
@@ -246,48 +225,26 @@ module.exports = function (grunt) {
         }]
       }
     },
-    buildcontrol: {
-      options: {
-        dir: '<%= yeoman.deploy %>',
-        commit: true,
-        push: true,
-        message: 'Built %sourceName% from commit %sourceCommit% on branch %sourceBranch%'
-      },
-      staging: {
+    compress: {
+      dist: {
         options: {
-          remote: 'git+ssh://84716@git.dc1.gpaas.net/staging.bizcardmaker.com.git',
-          branch: 'master'
-        }
-      },
-      development: {
-        options: {
-          remote: 'git+ssh://84716@git.dc1.gpaas.net/development.bizcardmaker.com.git',
-          branch: 'master'
-        }
-      },
-      www: {
-        options: {
-          remote: 'git+ssh://84716@git.dc1.gpaas.net/www.bizcardmaker.com.git',
-          branch: 'master'
-        }
+          archive: 'passwordmaker-mobile.zip'
+        },
+        files: [
+          {
+            src: [
+              '<%= yeoman.dist %>/**'
+            ],
+            dest: './'
+          }
+        ]
       }
-    },
-    exec: {
-      development: 'ssh 84716@git.dc1.gpaas.net "deploy development.bizcardmaker.com.git"',
-      staging: 'ssh 84716@git.dc1.gpaas.net "deploy staging.bizcardmaker.com.git"',
-      www: 'ssh 84716@git.dc1.gpaas.net "deploy www.bizcardmaker.com.git"'
-    },
-    wait: {
-      options: {
-        delay: 5000
-      },
-      dist: {}
     }
   });
 
   grunt.registerTask('server', function (target) {
     if (target === 'dist') {
-      return grunt.task.run(['default', 'connect:dist:keepalive']);
+      return grunt.task.run(['build', 'connect:dist:keepalive']);
     }
 
     grunt.task.run([
@@ -298,14 +255,8 @@ module.exports = function (grunt) {
     ]);
   });
 
-// 	grunt.registerTask('test', [
-// 		'clean:server',
-// 		'concurrent:test',
-// 		'connect:test',
-// 		'karma'
-// 	]);
-
   grunt.registerTask('build', [
+    'jshint',
     'clean:dist',
     'concurrent:dist',
     'imagemin',
@@ -322,26 +273,8 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('default', [
-    'jshint',
-    //'test',
-    'build'
-  ]);
-
-  grunt.registerTask('deploy-live', [
-    'default',
-    'buildcontrol:www',
-    'wait',
-    'exec:www'
-  ]);
-
-  grunt.registerTask('deploy', [
-    'default',
-    'copy:dev',
-    'buildcontrol:development',
-    'buildcontrol:staging',
-    'wait',
-    'exec:development',
-    'exec:staging'
+    'build',
+    'compress'
   ]);
 
 };
