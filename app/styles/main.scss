@@ -32,7 +32,6 @@ div[ng-view] {
   height: 100%;
   margin: 0;
   padding: 0;
-  background: white;
 }
 
 .ng-hide {
@@ -142,10 +141,6 @@ form[data-type=list] {
 
 form select {
   width: 100%;
-  padding: .5rem;
-  border: 0.1rem solid #ccc;
-
-  font-size: 1.8rem;
 }
 
 .password-generated {

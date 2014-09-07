@@ -9,12 +9,9 @@
     "jquery": "~2.x",
     "bourbon": "~3.x",
     "momentjs": "~2.8.x",
-    "building-blocks": "~1.3.x",
+    "building-blocks": "gh-pages",
     "localforage": "~0.9.x",
     "animate.css": "~3.2.x"
   },
-  "devDependencies": {},
-  "resolutions": {
-    "angular": "~1.3.x"
-  }
+  "devDependencies": {}
 }

@@ -1,14 +1,13 @@
 {
   "name": "building-blocks",
   "homepage": "https://github.com/buildingfirefoxos/Building-Blocks",
-  "version": "1.3.1",
-  "_release": "1.3.1",
+  "_release": "abc61bb763",
   "_resolution": {
-    "type": "version",
-    "tag": "v1.3.1",
-    "commit": "67827a75dc44278699065b391ea1a45133654858"
+    "type": "branch",
+    "branch": "gh-pages",
+    "commit": "abc61bb763b5b1e23f30368a280107240d863753"
   },
   "_source": "git://github.com/buildingfirefoxos/Building-Blocks.git",
-  "_target": "~1.3.x",
+  "_target": "gh-pages",
   "_originalSource": "building-blocks"
 }
