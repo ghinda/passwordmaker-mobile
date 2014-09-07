@@ -7,8 +7,7 @@
 
 /* Globals
  */
-$color1: #2854a1;
-$color2: lighten(saturate($color1, 40%), 20%);
+$color1: darken(desaturate(#f7ca18, 8%), 4%);
 
 /* Utils
  */
@@ -49,6 +48,14 @@ div[ng-view] {
   width: 2.9rem;
   height: 2.9rem;
 }
+
+/* Header
+ */
+
+section[role=region] > header:first-child {
+  background: $color1;
+}
+
 
 /* Fix firefoxos not scrolling to the bottom
  * beacause of border-top
@@ -162,27 +169,6 @@ form p textarea + button[type=reset] {
 /**
  Animations
  */
-/*
-.main-view.forward.ng-enter {
-  -webkit-animation: rightToCurrent .4s forwards;
-  animation: rightToCurrent .4s forwards;
-}
-
-.main-view.forward.ng-leave {
-  -webkit-animation: currentToLeft .4s forwards;
-  animation: currentToLeft .4s forwards;
-}
-
-.main-view.backward.ng-enter {
-  -webkit-animation: leftToCurrent .4s forwards;
-  animation: leftToCurrent .4s forwards;
-}
-
-.main-view.backward.ng-leave {
-  -webkit-animation: currentToRight .4s forwards;
-  animation: currentToRight .4s forwards;
-}*/
-
 $animation-time: .4s;
 
 .main-view {

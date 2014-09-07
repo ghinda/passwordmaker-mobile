@@ -5,7 +5,7 @@ var app = angular.module('passwordmaker-mobile', [
   'ngRoute',
   'ngTouch',
   'ngAnimate'
-]).config(function($routeProvider, $compileProvider, $parseProvider) {
+]).config(function($routeProvider, $compileProvider) {
   'use strict';
 
   $routeProvider
@@ -25,8 +25,6 @@ var app = angular.module('passwordmaker-mobile', [
   // Firefox OS uses for packaged apps
   $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|app):/);
 
-  $parseProvider.unwrapPromises(true);
-
 });
 
 app.run(function($rootScope, $location, $timeout, data){
@@ -44,10 +42,6 @@ app.run(function($rootScope, $location, $timeout, data){
     root.viewTransition = pageAnimation;
 
     $location.path(path);
-  };
-
-  $rootScope.GoBack = function() {
-    window.history.back();
   };
 
   // field clear method for x button on fields
