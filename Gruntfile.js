@@ -232,9 +232,9 @@ module.exports = function (grunt) {
         },
         files: [
           {
-            src: [
-              '<%= yeoman.dist %>/**'
-            ],
+            expand: true,
+            cwd: '<%= yeoman.dist %>',
+            src: ['**'],
             dest: './'
           }
         ]
