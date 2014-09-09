@@ -186,13 +186,6 @@ module.exports = function (grunt) {
           src: [
             '**/*.{png,jpg,jpeg}'
           ]
-        }, {
-          expand: true,
-          cwd: '<%= yeoman.app %>/bower_components/building-blocks/style_unstable',
-          dest: '<%= yeoman.dist %>/styles',
-          src: [
-            '**/*.{png,jpg,jpeg}'
-          ]
         }]
       }
     },
