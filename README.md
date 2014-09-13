@@ -11,7 +11,7 @@ Based on [http://www.passwordmaker.org/](http://www.passwordmaker.org/).
 
 ## Development
 
-PasswordMaker is built with AngularJS, and [Building Blocks](http://buildingfirefoxos.com/building-blocks/). It uses Grunt to do things.
+PasswordMaker is built with AngularJS and [Building Blocks](http://buildingfirefoxos.com/building-blocks/). It uses Grunt to do things.
 
 All data is stored on the device with [localForage](https://github.com/mozilla/localForage).
 
