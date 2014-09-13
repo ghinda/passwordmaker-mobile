@@ -1,4 +1,4 @@
-# [![](app/images/passwordmaker-mobile-icon-48.png?raw=true) PasswordMaker for FirefoxOS](https://marketplace.firefox.com/app/passwordmaker)
+# [![](app/images/icons/passwordmaker-mobile-icon-48.png?raw=true) PasswordMaker for FirefoxOS](https://marketplace.firefox.com/app/passwordmaker)
 
 PasswordMaker creates unique, secure passwords that are very easy for you to retrieve but no one else. Nothing is stored online anywhere, anytime, so there's nothing to be hacked, lost, or stolen.
 
@@ -7,7 +7,6 @@ Since FirefoxOS doesn't support copy/paste yet, you can display the generated pa
 Based on [http://www.passwordmaker.org/](http://www.passwordmaker.org/).
 
 ![](artwork/screenshot-generator.png?raw=true)
-![](artwork/screenshot-generator-profiles.png?raw=true)
 ![](artwork/screenshot-profile-edit.png?raw=true)
 
 ## Development
