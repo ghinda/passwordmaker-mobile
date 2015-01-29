@@ -546,35 +546,52 @@ var passwordmaker = (function() {
         return [segments.slice(0, pivot).join('.'), segments.slice(pivot).join('.')];
       }
     }
+    
     // None of the segments are in our TLD list. Assume the last component is
     // the TLD, like '.com'. The domain is therefore the last 2 components.
     return [segments.slice(0, -2).join('.'), segments.slice(-2).join('.')];
   };
 
   var getUrl = function(params) {
-    var groups = params.url.match(/([^:\/]*?:\/\/)?([^:\/]*)([^#]*)/);
-
-    var domainSegments = groups[2].split('.');
-    while (domainSegments.length < 3) {
-      domainSegments.unshift(''); // Helps prevent the URL from displaying undefined in the URL to use box
-    }
-
+    
     var resultURL = '';
-    if (params.url_protocol && groups[1] !== undefined) {
-      resultURL += groups[1];
-    }
-    var splitSegments = splitSubdomain(domainSegments);
-    if (params.url_subdomain) {
-      resultURL += splitSegments[0];
-    }
-    if (params.url_domain) {
-      if (resultURL.length !== 0 && resultURL[resultURL.length - 1] !== '.' && resultURL[resultURL.length - 1] !== '/') {
-          resultURL += '.';
+    
+    if(params.url.indexOf('.') === -1) {
+      // if we don't have a dot in the url string
+      // just use it as it is
+      resultURL = params.url;
+      
+    } else {
+      
+      // if we do have a dot in it
+      // parse it according to rules
+      
+      var groups = params.url.match(/([^:\/]*?:\/\/)?([^:\/]*)([^#]*)/);
+
+      var domainSegments = groups[2].split('.');
+      while (domainSegments.length < 3) {
+        // Helps prevent the URL from displaying undefined in the URL to use box
+        domainSegments.unshift(''); 
       }
-      resultURL += splitSegments[1];
-    }
-    if (params.url_path) {
-      resultURL += groups[3];
+      
+      if (params.url_protocol && groups[1] !== undefined) {
+        resultURL += groups[1];
+      }
+      var splitSegments = splitSubdomain(domainSegments);
+      if (params.url_subdomain) {
+        resultURL += splitSegments[0];
+      }
+      if (params.url_domain) {
+        if (resultURL.length !== 0 && resultURL[resultURL.length - 1] !== '.' && resultURL[resultURL.length - 1] !== '/') {
+            resultURL += '.';
+        }
+        resultURL += splitSegments[1];
+      }
+      
+      if (params.url_path) {
+        resultURL += groups[3];
+      }
+      
     }
 
     return resultURL;
