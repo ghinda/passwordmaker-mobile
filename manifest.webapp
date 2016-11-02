@@ -1,0 +1,26 @@
+{
+  "version": "1.0.2",
+  "name": "PasswordMaker",
+  "description": "PasswordMaker creates unique, secure passwords that are very easy for you to retrieve but no one else. Nothing is stored online anywhere, anytime, so there's nothing to be hacked, lost, or stolen.",
+  "launch_path": "/index.html",
+  "icons": {
+    "16": "/images/icons/passwordmaker-mobile-icon-16.png",
+    "48": "/images/icons/passwordmaker-mobile-icon-48.png",
+    "128": "/images/icons/passwordmaker-mobile-icon-128.png",
+    "256": "/images/icons/passwordmaker-mobile-icon-256.png",
+    "512": "/images/icons/passwordmaker-mobile-icon-512.png"
+  },
+  "developer": {
+    "name": "Ionut Colceriu",
+    "url": "http://ghinda.net"
+  },
+  "installs_allowed_from": ["*"],
+  "locales": {
+  },
+  "default_locale": "en",
+  "permissions":{
+    "desktop-notification": {
+      "description": "Required for showing the generated password as a notification."
+    }
+  }
+}

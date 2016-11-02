@@ -1,0 +1,92 @@
+<section role="region">
+
+  <header class="fixed">
+
+    <menu type="toolbar">
+      <a ng-click="Go('/profile/' + model.profile.id, 'popup')">
+        <span class="icon icon-compose">edit</span>
+      </a>
+    </menu>
+
+    <a ng-click="ToggleProfileMenu()">
+      <span class="icon icon-menu">show profiles</span>
+    </a>
+
+    <h1>
+      {{ model.profile.name }}
+    </h1>
+
+  </header>
+
+  <article class="scrollable header">
+
+    <form class="profile-menu" ng-show="model.showProfileMenu">
+
+      <section data-type="list">
+        <ul>
+          <li ng-repeat="profile in root.profiles">
+
+            <a ng-click="(model.profile.id !== profile.id) ? Go('/generate/' + profile.id, 'popup') : ToggleProfileMenu()">
+              <p>
+                {{ profile.name }}
+              </p>
+            </a>
+
+          </li>
+        </ul>
+      </section>
+
+      <button ng-click="Go('/profile', 'popup')" type="button" class="recommend btn-new-profile">
+        Create profile
+      </button>
+
+    </form>
+
+    <form ng-submit="Notify()" data-type="list">
+
+      <p>
+        <input type="text" placeholder="Password" ng-model="model.masterkey" ng-if="model.showPassword">
+
+        <input type="password" placeholder="Password" ng-model="model.masterkey" ng-if="!model.showPassword">
+
+        <button type="reset" ng-click="ClearModel(model, 'masterkey', $event)">Clear</button>
+      </p>
+
+      <p>
+        <label for="show-password">
+          Show password
+        </label>
+
+        <label class="pack-switch">
+          <input type="checkbox" id="show-password" ng-model="model.showPassword">
+          <span></span>
+        </label>
+      </p>
+
+      <p>
+        <input type="text" placeholder="Used text" ng-model="model.url">
+        <button type="reset" ng-click="ClearModel(model, 'url', $event)">Clear</button>
+      </p>
+
+      <header>
+        Generated password:
+      </header>
+
+      <p class="password-generated">
+        <input type="text" placeholder="Used text" ng-model="model.generatedPassword" readonly="readonly">
+      </p>
+
+      <button type="submit" class="recommend">
+        Show as notification
+      </button>
+
+      <button type="button" class="recommend" ng-click="Copy()">
+        {{ model.copyDone ? 'Copied' : 'Copy to clipboard' }}
+      </button>
+
+    </form>
+
+  </article>
+
+</section>
+

@@ -1,0 +1,202 @@
+<section role="region">
+
+  <header class="fixed">
+
+    <menu type="toolbar">
+      <a ng-click="SaveProfile()" ng-disabled="!model.profile.name || !model.profile.passwordLength">
+        Save
+      </a>
+    </menu>
+
+    <a ng-click="Go('/generate/' + model.profile.id, 'popdown')">
+      <span class="icon icon-back">back to generator</span>
+    </a>
+
+    <h1>
+      {{ model.profile.name }}
+    </h1>
+
+  </header>
+
+  <article class="scrollable header">
+
+    <form data-type="list">
+
+      <p>
+        <input type="text" placeholder="Name" ng-model="model.profile.name" required>
+        <button type="reset" ng-click="ClearModel(model.profile, 'name', $event)">Clear</button>
+      </p>
+
+      <header>
+        URL Components
+      </header>
+
+      <p>
+        <label class="pack-checkbox">
+          <input type="checkbox" id="protocol" ng-model="model.profile.url_protocol">
+          <span></span>
+        </label>
+
+        <label for="protocol">
+          Protocol
+        </label>
+      </p>
+
+      <p>
+        <label class="pack-checkbox">
+          <input type="checkbox" id="subdomains" ng-model="model.profile.url_subdomain">
+          <span></span>
+        </label>
+
+        <label for="subdomains">
+          Subdomain(s)
+        </label>
+      </p>
+
+      <p>
+        <label class="pack-checkbox">
+          <input type="checkbox" id="domain" ng-model="model.profile.url_domain">
+          <span></span>
+        </label>
+
+        <label for="domain">
+          Domain
+        </label>
+      </p>
+
+      <p>
+        <label class="pack-checkbox">
+          <input type="checkbox" id="path" ng-model="model.profile.url_path">
+          <span></span>
+        </label>
+
+        <label for="path">
+          Port, path, query parameters
+        </label>
+      </p>
+
+      <p>
+        <input type="text" placeholder="Use this text" ng-model="model.profile.strUseText">
+        <button type="reset">Clear</button>
+      </p>
+
+      <p>
+        <small>
+          If you want to use a fixed URL every time, you can fill it here. <br>
+          E.g. To use the same password on example.com and anotherexample.com, enter example.com here and it will always uses example.com for this profile.
+        </small>
+      </p>
+
+      <header>
+        Use l33t
+      </header>
+
+      <p>
+        <select name="theme" ng-model="model.profile.whereToUseL33t">
+          <option value="off">
+            Not at all
+          </option>
+          <option value="before-hashing">
+            Before generating password
+          </option>
+          <option value="after-hashing">
+            After generating password
+          </option>
+          <option value="both">
+            Before and after generating password
+          </option>
+        </select>
+      </p>
+
+      <header>
+        l33t level
+      </header>
+
+      <p>
+        <select name="theme" ng-disabled="model.profile.whereToUseL33t === 'off'" ng-model="model.profile.l33tLevel" ng-options="leet.label as leet.label for leet in model.leetValues">
+        </select>
+      </p>
+
+      <header>
+        Hash Algorithm
+      </header>
+
+      <p>
+        <select ng-model="model.profile.hashAlgorithm">
+          <option value="md4">MD4</option>
+          <option value="hmac-md4">HMAC-MD4</option>
+          <option value="md5">MD5</option>
+          <option value="hmac-md5">HMAC-MD5</option>
+          <option value="sha1">SHA-1</option>
+          <option value="hmac-sha1">HMAC-SHA-1</option>
+          <option value="sha256">SHA-256</option>
+          <option value="hmac-sha256_fix">HMAC-SHA-256</option>
+          <option value="rmd160">RIPEMD-160</option>
+          <option value="hmac-rmd160">HMAC-RIPEMD-160</option>
+        </select>
+      </p>
+
+      <p>
+        <input type="number" placeholder="Password Length" ng-model="model.profile.passwordLength" required>
+        <button type="reset" ng-click="ClearModel(model.profile, 'passwordLength', $event)">Clear</button>
+      </p>
+
+      <p>
+        <input type="text" placeholder="Username" ng-model="model.profile.username">
+        <button type="reset" ng-click="ClearModel(model.profile, 'username', $event)">Clear</button>
+      </p>
+
+      <p>
+        <input type="text" placeholder="Modifier" ng-model="model.profile.modifier">
+        <button type="reset" ng-click="ClearModel(model.profile, 'modifier', $event)">Clear</button>
+      </p>
+
+      <header>
+        Characters
+      </header>
+
+      <p>
+        <select ng-model="model.profile.selectedCharset">
+          <option>ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789`~!@#$%^&amp;*()_-+={}|[]\:";'&lt;&gt;?,./</option>
+          <option>ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789</option>
+          <option>0123456789abcdef</option>
+          <option>0123456789</option>
+          <option>ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz</option>
+          <option>`~!@#$%^&amp;*()_-+={}|[]:";'&lt;&gt;?,./</option>
+        </select>
+      </p>
+
+      <p>
+        <input type="text" placeholder="Password Prefix" ng-model="model.profile.passwordPrefix">
+        <button type="reset" ng-click="ClearModel(model.profile, 'passwordPrefix', $event)">Clear</button>
+      </p>
+
+      <p>
+        <input type="text" placeholder="Password Suffix" ng-model="model.profile.passwordSuffix">
+        <button type="reset" ng-click="ClearModel(model.profile, 'passwordSuffix', $event)">Clear</button>
+      </p>
+
+      <button ng-click="DeleteProfile()" type="button" class="danger" ng-if="model.profile.id && root.profiles.length > 1">
+        Delete profile
+      </button>
+
+    </form>
+
+  </article>
+
+</section>
+
+<form role="dialog" data-type="confirm" ng-show="model.showConfirmDelete" class="dialog-delete-confirm">
+  <section>
+    <h1>
+      Delete profile
+    </h1>
+    <p>Are you sure you want to delete this profile?</p>
+  </section>
+  <menu>
+    <button type="button" ng-click="model.showConfirmDelete = fale">Cancel</button>
+    <button type="button" class="danger" ng-click="DeleteProfile()">Delete</button>
+  </menu>
+</form>
+
+
