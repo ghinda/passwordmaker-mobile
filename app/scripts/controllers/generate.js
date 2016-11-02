@@ -5,6 +5,7 @@ app.controller('GenerateCtrl', function($rootScope, $scope, $routeParams, $locat
   var root = $rootScope.root;
 
   model.profile = {};
+  model.copyDone = false
 
   // check if there is a profile selected
   if($routeParams.profileId) {
@@ -101,6 +102,20 @@ app.controller('GenerateCtrl', function($rootScope, $scope, $routeParams, $locat
         }
       });
     }
+
+  };
+
+  $scope.Copy = function() {
+    document.querySelector('.password-generated input').select()
+
+    try {
+      document.execCommand('copy')
+
+      model.copyDone = true
+      $timeout(() => {
+        model.copyDone = false
+      }, 2000)
+    } catch (err) {}
 
   };
 
