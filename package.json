@@ -6,9 +6,10 @@
     "connect-livereload": "~0.4.x",
     "grunt": "~0.4.x",
     "grunt-angular-templates": "~0.5.x",
-    "grunt-build-control": "~0.1.x",
+    "grunt-build-control": "^0.1.8",
     "grunt-concurrent": "~0.5.x",
     "grunt-contrib-clean": "~0.6.x",
+    "grunt-contrib-compress": "^0.11.x",
     "grunt-contrib-concat": "~0.5.x",
     "grunt-contrib-connect": "~0.8.x",
     "grunt-contrib-copy": "~0.5.x",
@@ -22,8 +23,7 @@
     "grunt-rev": "~0.1.x",
     "grunt-sass": "~0",
     "grunt-usemin": "~2.x",
-    "matchdep": "~0.3.x",
-    "grunt-contrib-compress": "^0.11.x"
+    "matchdep": "~0.3.x"
   },
   "engines": {
     "node": ">=0.8.0"

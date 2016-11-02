@@ -232,6 +232,19 @@ module.exports = function (grunt) {
           }
         ]
       }
+    },
+    buildcontrol: {
+      options: {
+        dir: '<%= yeoman.dist %>',
+        commit: true,
+        push: true
+      },
+      site: {
+        options: {
+          remote: 'git@github.com:ghinda/passwordmaker-mobile.git',
+          branch: 'gh-pages'
+        }
+      }
     }
   });
 
@@ -268,6 +281,11 @@ module.exports = function (grunt) {
   grunt.registerTask('default', [
     'build',
     'compress'
+  ]);
+
+  grunt.registerTask('deploy', [
+    'default',
+    'buildcontrol'
   ]);
 
 };
